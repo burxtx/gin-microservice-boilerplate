@@ -1,0 +1,17 @@
+database:
+  host: user:passwd@tcp(hostname:port)/database
+
+http:
+  session_domain: appdomain
+  secret: secret
+
+server:
+  port: :30000
+  appid: appid
+  key: secret_key
+
+env:
+  mode: product
+  
+auth:
+  cas: https://domain
