@@ -3,7 +3,7 @@
 WORKSPACE=$(cd $(dirname $0)/; pwd)
 cd $WORKSPACE
 
-app=deploy-approve
+app=app
 conf=product
 localconf=development
 pidfile=var/app.pid
@@ -75,33 +75,15 @@ function status() {
     fi
 }
 
-function tailf() {
-    tail -f var/*.log
-}
-
 function build() {
     go build
     if [ $? -ne 0 ]; then
         exit $?
     fi
-    # mv $module $app
-    # ./$app -v
-}
-
-function pack() {
-    build
-    version=`./$app -v`
-    tar zcvf $app-$version.tar.gz control cfg.json $app static views
-}
-
-function packbin() {
-    build
-    version=`./$app -v`
-    tar zcvf $app-bin-$version.tar.gz $app
 }
 
 function help() {
-    echo "$0 pid|reload|build|pack|packbin|start|stop|restart|status|tail"
+    echo "$0 pid|reload|build|start|stop|restart|status"
 }
 
 function pid() {
@@ -124,14 +106,8 @@ elif [ "$1" == "restart" ];then
     restart
 elif [ "$1" == "status" ];then
     status
-elif [ "$1" == "tail" ];then
-    tailf
 elif [ "$1" == "build" ];then
     build
-elif [ "$1" == "pack" ];then
-    pack
-elif [ "$1" == "packbin" ];then
-    packbin
 elif [ "$1" == "pid" ];then
     pid
 elif [ "$1" == "reload" ];then
