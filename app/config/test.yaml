@@ -1,5 +1,5 @@
 database:
-  host: user:passwd@tcp(hostname:port)/database
+  host: root:passwd@tcp(localhost:3306)/database
 
 http:
   session_domain: appdomain

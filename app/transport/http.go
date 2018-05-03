@@ -1,15 +1,14 @@
-package server
+package transport
 
 import (
 	//"fmt"
 
 	"github.com/burxtx/gin-microservice-boilerplate/app/config"
 	"github.com/burxtx/gin-microservice-boilerplate/app/endpoints"
-	"github.com/burxtx/gin-microservice-boilerplate/app/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter(eps endpoints.AppEndpoint) *gin.Engine {
+func NewHttpRouter(eps endpoints.AppEndpoint) *gin.Engine {
 	c := config.GetConfig()
 	if c.GetString("env.mode") != "debug" {
 		gin.SetMode(gin.ReleaseMode)
@@ -23,7 +22,7 @@ func NewRouter(eps endpoints.AppEndpoint) *gin.Engine {
 	auth := new(endpoints.AuthEndpoint)
 	router.GET("/logout", auth.Logout)
 
-	router.Use(middlewares.CasAuthMiddleware())
+	router.Use(CasAuthMiddleware())
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(302, "/index.html")
 	})
@@ -38,3 +37,5 @@ func NewRouter(eps endpoints.AppEndpoint) *gin.Engine {
 	}
 	return router
 }
+
+/* TODO：encode decode methods */

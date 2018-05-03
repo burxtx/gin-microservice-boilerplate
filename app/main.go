@@ -8,8 +8,8 @@ import (
 	"github.com/burxtx/gin-microservice-boilerplate/app/config"
 	"github.com/burxtx/gin-microservice-boilerplate/app/db"
 	"github.com/burxtx/gin-microservice-boilerplate/app/endpoints"
-	"github.com/burxtx/gin-microservice-boilerplate/app/server"
 	"github.com/burxtx/gin-microservice-boilerplate/app/service"
+	"github.com/burxtx/gin-microservice-boilerplate/app/transport"
 )
 
 func main() {
@@ -28,5 +28,5 @@ func main() {
 	}
 	svc := service.New(dbSession)
 	eps := endpoints.New(svc)
-	server.Init(eps)
+	transport.NewHttpHandler(eps)
 }

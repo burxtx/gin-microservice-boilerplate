@@ -1,4 +1,4 @@
-package server
+package transport
 
 import (
 	"fmt"
@@ -7,9 +7,9 @@ import (
 	"github.com/burxtx/gin-microservice-boilerplate/app/endpoints"
 )
 
-func Init(eps endpoints.AppEndpoint) {
+func NewHttpHandler(eps endpoints.AppEndpoint) {
 	config := config.GetConfig()
-	r := NewRouter(eps)
+	r := NewHttpRouter(eps)
 	fmt.Println("=== router ready ===")
 	r.Run(config.GetString("server.port"))
 }
